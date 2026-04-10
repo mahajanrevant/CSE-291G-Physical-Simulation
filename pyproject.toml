@@ -1,0 +1,11 @@
+[project]
+name = "cse-291g-physical-simulation"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "imageio[ffmpeg]>=2.36",
+    "matplotlib>=3.10.8",
+    "numpy>=2.0",
+]
