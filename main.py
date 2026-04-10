@@ -7,10 +7,12 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-LENGTH = 5
+LENGTH = 5 # meters
 MAX_T = 30
-DELTA_T = 0.1
+### Smaller delta T resulted in stability. System was unstable for 0.1 and 0.01
+DELTA_T = 0.001
 OUTPUT_DIR = "./output"
+GRAVITY = 9.8 # Gravity of 9.8 m/s^2
 
 matplotlib.use("Agg")
 
@@ -58,10 +60,10 @@ def calculate_trajectory(curr_theta, curr_vel):
     k3_theta = vel_third_order
     k4_theta = vel_fourth_order
 
-    k1_vel = -1 * math.sin(curr_theta)
-    k2_vel = -1 * math.sin(theta_second_order)
-    k3_vel = -1 * math.sin(theta_third_order)
-    k4_vel = -1 * math.sin(theta_fourth_order)
+    k1_vel = -1 * GRAVITY * math.sin(curr_theta)
+    k2_vel = -1 * GRAVITY * math.sin(theta_second_order)
+    k3_vel = -1 * GRAVITY * math.sin(theta_third_order)
+    k4_vel = -1 * GRAVITY * math.sin(theta_fourth_order)
 
     next_theta = curr_theta + DELTA_T/6 * (k1_theta + 2 * k2_theta + 2 * k3_theta + k4_theta)
     next_vel = curr_vel + DELTA_T/6 * (k1_vel + 2 * k2_vel + 2 * k3_vel + k4_vel)
@@ -69,9 +71,7 @@ def calculate_trajectory(curr_theta, curr_vel):
     return next_theta, next_vel
 
 def main():
-    print("Hello from cse-291g-physical-simulation!")
-
-    curr_theta = math.pi / 180 * random.randint(-90, 90)
+    curr_theta = math.pi / 3
     curr_vel = 0
 
     frames = []
